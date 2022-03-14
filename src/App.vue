@@ -7,26 +7,33 @@
   <br />
   <section class="hero has-text-centered">
     <div class="hero-body">
-      <button @click="toggleModal" class="button is-info">Play</button>
+      <button @click="playGame" :disabled="isPlayng" class="button is-info">
+        Play
+      </button>
     </div>
   </section>
-
-  <PopUp v-if="showModal" @close="toggleModal" />
+  <Results />
+  <PopUp v-if="isPlayng" @close="toggleModal" :delay="this.delay" />
 </template>
 <script>
 import PopUp from "./components/PopUp.vue";
+import Results from "./components/Results.vue";
 export default {
   name: "App",
-  components: { PopUp },
+  components: { PopUp, Results },
   data() {
     return {
-      showModal: false,
+      isPlayng: false,
+      delay: null,
     };
   },
   methods: {
     toggleModal() {
-      console.log(this.showModal);
-      this.showModal = !this.showModal;
+      this.isPlayng = !this.isPlayng;
+    },
+    playGame() {
+      this.delay = 200 + Math.random() * 2000;
+      this.isPlayng = true;
     },
   },
 };

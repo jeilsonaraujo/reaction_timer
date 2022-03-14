@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-js-example" class="modal is-active">
+  <div id="modal-js-example" class="modal is-active" v-if="isShowing">
     <div class="modal-content" @click="closePopUp">
       <div class="boxclick click has-text-centered">
         <br />
@@ -11,6 +11,23 @@
 </template>
 <script>
 export default {
+  props: ["delay"],
+  data() {
+    return {
+      isShowing: false,
+      timer: null,
+    };
+  },
+  methods: {
+    startTimer() {},
+    stopTimer() {},
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isShowing = true;
+      startTimer();
+    }, this.delay);
+  },
   methods: {
     closePopUp() {
       this.$emit("close");
